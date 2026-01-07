@@ -4,8 +4,8 @@
 // sale: boolean
 // rate: enum {low : 'Thấp', medium: 'Trung bình', hight : 'Cao'}
 enum Rate {
-    low = "Thấp",
-    medium = "Trung bình",
+    low = "Thap",
+    medium = "Trung binh",
     hight = "Cao"
 };
 const product:{
@@ -34,25 +34,25 @@ const listProducts:{
     },
     {
         name: "Samsung S25",
-        price: 25,
+        price: 25000000,
         sale: false,
         rate: Rate.medium
     },
     {
         name: "Xiaomi 15",
-        price: 18,
+        price: 18000000,
         sale: true,
         rate: Rate.low
     },
     {
         name: "OPPO Find X",
-        price: 22,
+        price: 22000000,
         sale: true,
         rate: Rate.medium
     },
     {
         name: "Vivo X100",
-        price: 28,
+        price: 28000000,
         sale: false,
         rate: Rate.hight
     }
