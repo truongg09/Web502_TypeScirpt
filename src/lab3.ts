@@ -6,7 +6,7 @@ const tinhDTB= (toan: number,ly: number,hoa: number): number =>{
 type KiemTraChanLe = (n: number) => boolean;
 const laSoChan: KiemTraChanLe= (n)=> n % 2 === 0;
 // Hàm tạo thông tin người dùng (Default + Optional Parameter)
-const taoInforUser=(
+const taoInforUser =(
     name: string,
     age?: number,
     role: string = "User"
@@ -18,14 +18,14 @@ const taoInforUser=(
     };
 };
 // Hàm xử lý danh sách sản phẩm (Spread + Rest)
-const xuLyListProduct = (
+const xuLyListProduct =(
     ...products: {
       name: string,
       price: number,
       sale: boolean
     }[]
-  ) => {
+)=>{
     return [...products];
-  };
+};
   
   
