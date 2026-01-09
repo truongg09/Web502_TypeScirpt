@@ -20,9 +20,9 @@ const taoInforUser =(
 // Hàm xử lý danh sách sản phẩm (Spread + Rest)
 const xuLyListProduct =(
     ...products: {
-      name: string,
-      price: number,
-      sale: boolean
+      name: string;
+      price: number;
+      sale: boolean;
     }[]
 )=>{
     return [...products];

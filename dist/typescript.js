@@ -39,3 +39,10 @@ const data = {
 };
 data.timeLearn; //undefined
 data.description; //null
+// 9. Unknown và Any
+let input = "hello";
+// input.toLowerCase(); // error
+// hay gap try catch axios => catch (error: unknown) { as AxiosError} : message
+// 10. Type Assertions
+input.toLowerCase(); // casting
+input.toLowerCase(); // casting
