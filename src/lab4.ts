@@ -1,23 +1,15 @@
 // Bài 1 Tạo type Student gồm id, name, score.
-class Student{
+type Student={
     id: number;
     name: string;
     score: number;
-
-    constructor(id: number,name:string, score:number){
-        this.id = id;
-        this.name = name;
-        this.score = score;
-    }
-
-    showInfo(): string{
-        return `ID: ${this.id} - Name: ${this.name} - Age: ${this.score}`;
-    }
-}
-
-const s1 = new Student(1, "truong", 21);
-console.log(s1.showInfo());
-
+};
+const student: Student={
+    id: 1,
+    name: "truong",
+    score: 9
+};
+console.log(student);
 // Bài 2 Tạo interface User có id, email là required, còn phone optional.
 interface IUser{
     id: number;
