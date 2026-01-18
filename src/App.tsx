@@ -3,22 +3,22 @@ import { Link, Route, Routes } from "react-router-dom";
 import ListPage from "./pages/List";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
-import Button from "./components/Button";
-import { useEffect, useState } from "react";
+// import Button from "./components/Button";
+// import { useEffect, useState } from "react";
 
 function App() {
-  // App Component: count la state
-  const [count, setCount] = useState(1000000); // state: count = 0, setState : value => state = value
+  // // App Component: count la state
+  // const [count, setCount] = useState(1000000); // state: count = 0, setState : value => state = value
 
-  useEffect(() => {
-    console.log("App component da duoc render");
-    // fetch("https://jsonplaceholder.typicode.com/posts");
-    document.title = `Count is ${count}`;
-  }, []);
+  // useEffect(() => {
+  //   console.log("App component da duoc render");
+  //   // fetch("https://jsonplaceholder.typicode.com/posts");
+  //   document.title = `Count is ${count}`;
+  // }, []);
 
   return (
     <>
-      <h1>Bien count co gia tri : {count}</h1>
+      {/* <h1>Bien count co gia tri : {count}</h1>
       <Button
         // count la prop cua Button
         count={count}
@@ -26,7 +26,7 @@ function App() {
         color="primary"
         bgColor="#007bff"
         onClick={() => setCount(count + 1)}
-      ></Button>
+      ></Button> */}
       {/* <Button
         label="Click me"
         color="primary"
@@ -49,7 +49,7 @@ function App() {
             <Link to="#" className="hover:text-gray-200">
               Trang chủ
             </Link>
-            <Link to="/" className="hover:text-gray-200">
+            <Link to="/list" className="hover:text-gray-200">
               Danh sách
             </Link>
             <Link to="add" className="hover:text-gray-200">
@@ -70,7 +70,7 @@ function App() {
 
       {/* MAIN CONTENT */}
       <div className="max-w-6xl mx-auto mt-10 px-4 text-center">
-        <h1 className="text-4xl font-bold mb-4">Chào mừng đến với WEB502</h1>
+        {/* <h1 className="text-4xl font-bold mb-4">Chào mừng đến với WEB502</h1> */}
         <Routes>
           <Route path="/list" element={<ListPage />} />
           <Route path="/add" element={<AddPage />} />
