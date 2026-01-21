@@ -1,32 +1,61 @@
 import axios from "axios";
 import { useForm } from "react-hook-form";
-import z from "zod";
+import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useParams, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 type FormValues = {
   name: string;
+  credit: number;
+  category: string;
+  teacher: string;
 };
 
 const validate = z.object({
-  name: z.string().min(3, "Tên phải >= 3 ký tự"),
-  credit: z.coerce.number().min(1, "Credit > 0"),
-  category: z.string(),
-  teacher: z.string().min(3, "Tên GV >= 3 ký tự"),
+  name: z.string().min(3, "Name 3 ky tu").max(10),
+  credit: z.number().min(1).max(100),
 });
 
 function AddPage() {
+  const { id } = useParams(); // params: {id: '1'}
+  const navigate = useNavigate();
+
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm({
     resolver: zodResolver(validate),
   });
-  console.log(errors);
+
+  // get data theo id
+  useEffect(() => {
+    const getDetail = async () => {
+      try {
+        const { data } = await axios.get(`http://localhost:3000/courses/${id}`);
+        reset(data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    if (id) {
+      getDetail();
+    }
+  }, [id]);
 
   const onSubmit = async (values: FormValues) => {
     try {
-      await axios.post("http://localhost:3000/courses", values);
+      if (id) {
+        // edit
+        await axios.put(`http://localhost:3000/courses/${id}`, values);
+      } else {
+        // add
+        await axios.post("http://localhost:3000/courses", values);
+        alert("Thêm thành công!");
+        navigate("/list");
+      }
     } catch (error) {
       console.log(error);
     }

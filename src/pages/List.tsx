@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
+// import { it } from "zod/locales";
 // type /interface
 type Course = {
   id: number;
@@ -42,6 +45,20 @@ function ListPage() {
     };
     getAll();
   }, []);
+
+  const handleDelete = async (id: number) => {
+    try {
+      if (!confirm("Bạn chắc chắn muốn xóa khóa học này không?")) return;
+  
+      await axios.delete(`http://localhost:3000/courses/${id}`);
+  
+      setCourses(courses.filter((course) => course.id !== id));
+  
+      toast.success("Xóa thành công!");
+    } catch (error) {
+      toast.error("Xóa thất bại!");
+    }
+  };  
 
   return (
     <div className="p-6">
@@ -105,7 +122,18 @@ function ListPage() {
                 <td className="px-4 py-2 border border-gray-300">{item.id}</td>
                 <td className="px-4 py-2 border border-gray-300 text-left">{item.name}</td>
                 <td className="px-4 py-2 border border-gray-300 text-left">{item.teacher}</td>
-                <td className="px-4 py-2 border border-gray-300 text-left">Edit</td>
+                <td className="px-4 py-2 border border-gray-300 text-left">
+                  <Link to={`/edit/${item.id}`}
+                  className="px-3 py-1 bg-blue-500 text-white rounded inline-block">
+                    Sửa
+                  </Link>
+                  <button
+                    className="px-3 py-1 ml-1 bg-red-500 text-white rounded"
+                    onClick={() => handleDelete(item.id)}
+                  >
+                    Xóa
+                  </button>
+                </td>
               </tr>
             ))}
           </tbody>

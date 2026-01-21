@@ -52,7 +52,7 @@ function App() {
             <Link to="/list" className="hover:text-gray-200">
               Danh sách
             </Link>
-            <Link to="add" className="hover:text-gray-200">
+            <Link to="/add" className="hover:text-gray-200">
               Thêm mới
             </Link>
           </div>
@@ -73,7 +73,7 @@ function App() {
         <Routes>
           <Route path="/list" element={<ListPage />} />
           <Route path="/add" element={<AddPage />} />
-          <Route path="/edit" element={<EditPage />} />
+          <Route path="/edit/:id" element={<EditPage />} />
         </Routes>
       </div>
 
