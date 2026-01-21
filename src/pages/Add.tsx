@@ -1,34 +1,100 @@
+import axios from "axios";
+import { useForm } from "react-hook-form";
+import z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+type FormValues = {
+  name: string;
+};
+
+const validate = z.object({
+  name: z.string().min(3, "Tên phải >= 3 ký tự"),
+  credit: z.coerce.number().min(1, "Credit > 0"),
+  category: z.string(),
+  teacher: z.string().min(3, "Tên GV >= 3 ký tự"),
+});
+
 function AddPage() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: zodResolver(validate),
+  });
+  console.log(errors);
+
+  const onSubmit = async (values: FormValues) => {
+    try {
+      await axios.post("http://localhost:3000/courses", values);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="p-6">
       <h1 className="text-2xl font-semibold mb-6">Thêm mới</h1>
 
-      <form className="space-y-6">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         {/* Text input */}
         <div>
           <label htmlFor="text" className="block font-medium mb-1">
-            Text
+            Tên khóa học
           </label>
           <input
+            {...register("name")}
             type="text"
             id="text"
             className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
           />
+          <span>{errors?.name?.message}</span>
         </div>
 
-        {/* Select */}
+        {/* Credit */}
         <div>
-          <label htmlFor="selectOption" className="block font-medium mb-1">
-            Select - option
+          <label htmlFor="credit" className="block font-medium mb-1">
+            Số tín chỉ
+          </label>
+          <input
+            {...register("credit")}
+            type="number"
+            id="credit"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span className="text-red-500">{errors?.credit?.message}</span>
+        </div>
+
+        {/* Category */}
+        <div>
+          <label htmlFor="category" className="block font-medium mb-1">
+            Danh mục
           </label>
           <select
-            id="selectOption"
+            {...register("category")}
+            id="category"
             className="w-full border rounded-lg px-3 py-2 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+            <option value="">-- Chọn danh mục --</option>
+            <option value="Chuyên ngành">Chuyên ngành</option>
+            <option value="Đại cương">Đại cương</option>
+            <option value="Cơ sở">Cơ sở</option>
           </select>
+          <span className="text-red-500">{errors?.category?.message}</span>
+        </div>
+
+        {/* Teacher */}
+        <div>
+          <label htmlFor="teacher" className="block font-medium mb-1">
+            Giảng viên
+          </label>
+          <input
+            {...register("teacher")}
+            type="text"
+            id="teacher"
+            className="w-full border rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          />
+          <span className="text-red-500">{errors?.teacher?.message}</span>
         </div>
 
         {/* Submit button */}
