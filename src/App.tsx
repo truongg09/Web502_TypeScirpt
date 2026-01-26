@@ -3,42 +3,11 @@ import { Link, Route, Routes } from "react-router-dom";
 import ListPage from "./pages/List";
 import AddPage from "./pages/Add";
 import EditPage from "./pages/Edit";
-// import Button from "./components/Button";
-// import { useEffect, useState } from "react";
+import AuthPage from "./pages/AuthPage";
 
 function App() {
-  // // App Component: count la state
-  // const [count, setCount] = useState(1000000); // state: count = 0, setState : value => state = value
-
-  // useEffect(() => {
-  //   console.log("App component da duoc render");
-  //   // fetch("https://jsonplaceholder.typicode.com/posts");
-  //   document.title = `Count is ${count}`;
-  // }, []);
-
   return (
     <>
-      {/* <h1>Bien count co gia tri : {count}</h1>
-      <Button
-        // count la prop cua Button
-        count={count}
-        label="Tang Count them 1"
-        color="primary"
-        bgColor="#007bff"
-        onClick={() => setCount(count + 1)}
-      ></Button> */}
-      {/* <Button
-        label="Click me"
-        color="primary"
-        bgColor="#007bff"
-        onClick={() => console.log("Click me clicked!")}
-      ></Button>
-      <Button
-        label="BUTTON 2 "
-        color="secondary"
-        bgColor="#6c757d"
-        onClick={() => console.log("Button 2 clicked!")}
-      ></Button> */}
       <nav className="bg-blue-600 text-white shadow">
         <div className="max-w-6xl mx-auto px-4 h-16 flex items-center justify-between">
           <Link to="#" className="text-xl font-semibold">
@@ -58,10 +27,10 @@ function App() {
           </div>
 
           <div className="hidden md:flex items-center space-x-6">
-            <Link to="#" className="hover:text-gray-200">
+            <Link to="/login" className="hover:text-gray-200">
               Đăng nhập
             </Link>
-            <Link to="#" className="hover:text-gray-200">
+            <Link to="/register" className="hover:text-gray-200">
               Đăng ký
             </Link>
           </div>
@@ -74,6 +43,8 @@ function App() {
           <Route path="/list" element={<ListPage />} />
           <Route path="/add" element={<AddPage />} />
           <Route path="/edit/:id" element={<EditPage />} />
+          <Route path="/register" element={<AuthPage />}></Route>
+          <Route path="/login" element={<AuthPage isLogin />}></Route>
         </Routes>
       </div>
 
