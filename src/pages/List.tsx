@@ -26,6 +26,7 @@ function ListPage() {
     const teacherPhuHop = teacherFilter ? course.teacher === teacherFilter : true;
     return tenPhuHop && teacherPhuHop;
   });
+
   const ITEMS_PER_PAGE = 4;
   const totalPages = Math.ceil(locCourses.length / ITEMS_PER_PAGE) || 1;
   const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
@@ -103,9 +104,15 @@ function ListPage() {
           <thead className="bg-gray-100">
             <tr>
               <th className="px-4 py-2 border border-gray-300">ID</th>
-              <th className="px-4 py-2 border border-gray-300 text-left">Name</th>
-              <th className="px-4 py-2 border border-gray-300 text-left">Teacher</th>
-              <th className="px-4 py-2 border border-gray-300 text-left">Actions</th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Name
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Teacher
+              </th>
+              <th className="px-4 py-2 border border-gray-300 text-left">
+                Actions
+              </th>
             </tr>
           </thead>
 
@@ -117,8 +124,7 @@ function ListPage() {
                 <td className="px-4 py-2 border border-gray-300 text-left">{item.teacher}</td>
                 <td className="px-4 py-2 border border-gray-300 text-left">
                   <Link to={`/edit/${item.id}`}
-                  className="px-3 py-1 bg-blue-500 text-white rounded inline-block"
-                  >
+                  className="px-3 py-1 bg-blue-500 text-white rounded inline-block">
                     Sửa
                   </Link>
                   <button
