@@ -10,28 +10,30 @@ type Props = {
 };
 
 type FormValues = {
-  user: string;
-  email?: string;
+  user?: string;
+  email: string;
   password: string;
   confirmPassword?: string;
 };
 
 const loginSchema = z.object({
-  user: z.string().min(4, "Tên đăng nhập ít nhất 4 ký tự"),
+  email: z.string().email("Email không hợp lệ"),
   password: z.string().min(6, "Mật khẩu ít nhất 6 ký tự"),
 });
 
-const registerSchema = z.object({
+const registerSchema = z
+  .object({
     user: z.string().min(4, "Tên đăng nhập ít nhất 4 ký tự"),
     email: z.string().email("Email không hợp lệ"),
     password: z.string().min(6, "Mật khẩu ít nhất 6 ký tự"),
     confirmPassword: z.string().min(6, "Vui lòng nhập lại mật khẩu"),
-}).refine((data) => data.password === data.confirmPassword, {
+  })
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Mật khẩu không khớp",
     path: ["confirmPassword"],
-});
+  });
 
-function AuthPage({ isLogin }: Props) {
+function AuthPage({ isLogin = false }: Props) {
   const nav = useNavigate();
 
   const schema = isLogin ? loginSchema : registerSchema;
@@ -47,9 +49,8 @@ function AuthPage({ isLogin }: Props) {
   const onSubmit = async (values: FormValues) => {
     try {
       if (isLogin) {
-        // login
         const { data } = await axios.post("http://localhost:3000/login", {
-          user: values.user,
+          email: values.email,
           password: values.password,
         });
 
@@ -57,7 +58,6 @@ function AuthPage({ isLogin }: Props) {
         toast.success("Đăng nhập thành công");
         nav("/list");
       } else {
-        // register
         await axios.post("http://localhost:3000/register", {
           user: values.user,
           email: values.email,
@@ -79,31 +79,31 @@ function AuthPage({ isLogin }: Props) {
       </h1>
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-        <div>
-          <input
-            {...register("user")}
-            type="text"
-            className="w-full border rounded-lg px-3 py-2"
-            placeholder="Nhập tên đăng nhập"
-          />
-          <p className="text-left pl-1 text-red-500 text-sm">
-            {errors.user?.message}
-          </p>
-        </div>
-
         {!isLogin && (
           <div>
             <input
-              {...register("email")}
-              type="email"
+              {...register("user")}
+              type="text"
               className="w-full border rounded-lg px-3 py-2"
-              placeholder="Nhập Email"
+              placeholder="Nhập họ tên"
             />
             <p className="text-left pl-1 text-red-500 text-sm">
-              {errors.email?.message}
+              {errors.user?.message}
             </p>
           </div>
         )}
+
+        <div>
+          <input
+            {...register("email")}
+            type="email"
+            className="w-full border rounded-lg px-3 py-2"
+            placeholder="Nhập Email"
+          />
+          <p className="text-left pl-1 text-red-500 text-sm">
+            {errors.email?.message}
+          </p>
+        </div>
 
         <div>
           <input

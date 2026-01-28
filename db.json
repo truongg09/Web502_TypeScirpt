@@ -44,5 +44,11 @@
     }
   ],
   "users": [
+    {
+      "email": "truong@gmail.com",
+      "password": "$2a$10$NBJnXo/EgafdRxSyCqEx/um1NCn/eC5phIEqr2luC93vGqfEXqjXC",
+      "user": "truong",
+      "id": 1
+    }
   ]
 }
