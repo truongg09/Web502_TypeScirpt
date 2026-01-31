@@ -55,6 +55,7 @@ function AuthPage({ isLogin = false }: Props) {
         });
 
         localStorage.setItem("accessToken", data.accessToken);
+        localStorage.setItem("user", JSON.stringify(data.user));
         toast.success("Đăng nhập thành công");
         nav("/list");
       } else {
@@ -67,8 +68,8 @@ function AuthPage({ isLogin = false }: Props) {
         toast.success("Đăng ký thành công");
         nav("/login");
       }
-    } catch (error: any) {
-      toast.error(error?.response?.data?.message || "Có lỗi xảy ra");
+    } catch (error) {
+      console.log(error);
     }
   };
 
